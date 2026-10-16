@@ -1,5 +1,7 @@
 # Project 2, Week 5: Scene Classification with Transfer Learning
 
+**Kaggle Notebook Link:** https://www.kaggle.com/code/mahumjunaid/week-5-transfer-learning
+
 ## Overview
 This project builds a deep learning image classifier to recognize 6 types of natural scenes (buildings, forest, glacier, mountain, sea, street) using the Intel Image Classification dataset. The model uses a pretrained ResNet-18 and explores both feature extraction and fine-tuning.
 
