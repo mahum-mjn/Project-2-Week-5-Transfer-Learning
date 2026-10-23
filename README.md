@@ -2,7 +2,7 @@
 
 ## Week 6: Pneumonia Detection (Medical Imaging)
 
-**Kaggle Notebook Link:** [[PASTE YOUR WEEK 6 KAGGLE LINK HERE](https://www.kaggle.com/code/mahumjunaid/week-6-medical-imaging-pneumonia-detection)]
+**Kaggle Notebook Link:** [[WEEK 6 KAGGLE LINK ](https://www.kaggle.com/code/mahumjunaid/week-6-medical-imaging-pneumonia-detection)]
 
 **Overview:**
 This week, I moved from natural scenes to a real-world medical dataset. The goal was to build a complete, defensible computer vision pipeline that handles imbalanced data, patient-level leakage, and identifies model shortcuts using Grad-CAM.
