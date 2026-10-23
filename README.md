@@ -2,7 +2,7 @@
 
 ## Week 6: Pneumonia Detection (Medical Imaging)
 
-**Kaggle Notebook Link:** [[WEEK 6 KAGGLE LINK ](https://www.kaggle.com/code/mahumjunaid/week-6-medical-imaging-pneumonia-detection)]
+**Kaggle Notebook Link:** [[ WEEK 6 KAGGLE LINK ](https://www.kaggle.com/code/mahumjunaid/week-6-medical-imaging-pneumonia-detection)]
 
 **Overview:**
 This week, I moved from natural scenes to a real-world medical dataset. The goal was to build a complete, defensible computer vision pipeline that handles imbalanced data, patient-level leakage, and identifies model shortcuts using Grad-CAM.
@@ -27,6 +27,12 @@ This week, I moved from natural scenes to a real-world medical dataset. The goal
 
 **Grad-CAM Finding:**
 While the model correctly focused on lung fields for many NORMAL images, the error gallery revealed **shortcut learning**. For some misclassified images, the model looked intensely at the bright white "R" marker or text in the corner, rather than the lungs. The proposed fix is to crop or mask these text regions before training.
+
+### Responsible Domain AI
+*   **Who could be harmed, and how?** A child with pneumonia could be sent home without treatment because of a false negative. Alternatively, a healthy patient could be unnecessarily stressed and exposed to radiation if falsely flagged (false positive).
+*   **Where was it NOT validated?** The dataset consists of pediatric patients (ages 1-5) from a single hospital (Guangzhou Women and Children’s Medical Center). It has not been validated on adults, other hospitals, different X-ray machines, or the local Pakistani population.
+*   **What is the human role?** The model acts as a triage assistant to prioritize a radiologist's queue. It is a screening tool to flag high-risk images; it is never a final diagnosis. A human radiologist must review every flagged image.
+*   **What would change your mind?** External validation at a local Pakistani hospital demonstrating that the model maintains a high enough PPV at the local prevalence rate (accounting for local scanner differences and population demographics).
 
 ---
 
