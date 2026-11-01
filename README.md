@@ -2,7 +2,7 @@
 
 ## Week 7: Text and Multimodal AI (Medical NLP Pipeline)
 
-**Kaggle Notebook Link:** [[WEEK 7 KAGGLE LINK](https://www.kaggle.com/code/mahumjunaid/week-7-text-and-multimodal)]
+**Kaggle Notebook Link:** [[WEEK 7 KAGGLE LINK](https://www.kaggle.com/code/mahumjunaid/week-7-text-and-multimodal?scriptVersionId=364555031)]
 
 ### Project Overview
 This week extends the Week 6 chest X-ray classifier into a **multimodal clinical triage pipeline**. The system integrates image predictions with unstructured text processing (NER, Regex, and OCR) to generate a transparent, privacy-compliant JSON case record.
