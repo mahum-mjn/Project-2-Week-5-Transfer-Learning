@@ -28,7 +28,16 @@ While testing the optional API Key requirement, I encountered an authentication 
 **Pytest Output:**
 `8 passed, 1 warning in 10.15s`
 
-**Benchmark Numbers:**
+**Performance Benchmark:**
+The API was benchmarked using 50 image prediction requests. 
+
+![Terminal Benchmark Output](PASTE_YOUR_TERMINAL_SCREENSHOT_RAW_LINK_HERE)
+
+**Actual Benchmark Output:**
+`N=50  p50=59 ms p95=68 ms max=522 ms`
+`Throughput with 1 worker ~ 14.4 requests/s`
+
+**Performance Summary:**
 
 | Metric | Value |
 | :--- | :--- |
@@ -43,8 +52,8 @@ While testing the optional API Key requirement, I encountered an authentication 
 *   At p50 latency of 59 ms (0.059 seconds): Max throughput per worker = 1 / 0.059 = **16.95 requests/second**.
 *   Requests per day = 16.95 * 60 * 60 * 24 = **1,464,480 requests per day** (theoretical maximum at 100% utilization).
 
-**Bad Input Test:**
-Beyond the automated tests, I sent a corrupt text file (`not_an_image.txt`) to the `/predict` endpoint using the Swagger UI. The API correctly caught the invalid format and returned a **415 Unsupported Media Type** error, preventing the model from crashing.
+**Bad Input Test (Manual Swagger UI Check):**
+Beyond the automated `pytest` tests, I manually tested the API via the Swagger UI by trying to upload a plain text file (`notes.txt`) to the `/predict` endpoint. The API correctly rejected it and returned a **415 Unsupported Media Type** error. It did not crash, and it did not return a 500 server error. This proves the API's error handling is working correctly and prevents users from sending unreadable files to the image model.
 
 ### 4. Check Your Understanding
 
