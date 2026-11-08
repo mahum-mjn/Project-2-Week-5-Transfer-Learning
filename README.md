@@ -21,7 +21,7 @@ While testing the optional API Key requirement, I encountered an authentication 
 *   **The Fix:** I typed the secret key (`choose-a-long-secret`) into the `x-api-key` box. The API successfully authenticated and returned the `200 OK` response with the prediction.
 *   **Takeaway:** This proves the security feature works. Any client calling the API must include the header `x-api-key`, otherwise they are blocked.
 
-![Screenshot of the API Error and Fix](PASTE_YOUR_RAW_IMAGE_LINK_HERE)
+![Screenshot of the API Error and Fix](https://github.com/mahum-mjn/Project-2-Week-5-Transfer-Learning/raw/main/error_screenshot.png)
 
 ### 3. Testing and Benchmarking (Task A.5)
 
