@@ -31,7 +31,7 @@ While testing the optional API Key requirement, I encountered an authentication 
 **Performance Benchmark:**
 The API was benchmarked using 50 image prediction requests. 
 
-![Terminal Benchmark Output](PASTE_YOUR_TERMINAL_SCREENSHOT_RAW_LINK_HERE)
+![Terminal Benchmark Output]([PASTE_YOUR_TERMINAL_SCREENSHOT_RAW_LINK_HERE](https://github.com/mahum-mjn/Project-2-Week-5-Transfer-Learning/raw/main/benchmark_output.png))
 
 **Actual Benchmark Output:**
 `N=50  p50=59 ms p95=68 ms max=522 ms`
