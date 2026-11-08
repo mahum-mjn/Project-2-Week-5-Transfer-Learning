@@ -1,4 +1,63 @@
 # Applied AI - Project 2: Deep Learning Applications
+## Week 8: Deploying the Medical AI API (FastAPI)
+
+**Local API:** `http://127.0.0.1:8000/docs` (FastAPI Swagger UI)
+
+### 1. API Implementation and Usage
+I transformed my Week 6 Pneumonia image model and Week 7 text pipeline into a robust FastAPI web service. The API accepts an X-ray image and a clinical note, masks sensitive PII, runs the image through the PyTorch model, extracts urgent terms from the text, and returns a structured JSON case record.
+
+| Endpoint | Method | Description |
+| :--- | :--- | :--- |
+| `/health` | GET | Confirms the model is loaded and returns the positive class. |
+| `/predict` | POST | Accepts an image file (JPEG/PNG) and returns the predicted class, probabilities, and latency. |
+| `/analyze` | POST | Accepts an image and a text note. Masks PII, extracts fields, checks for urgent terms, and returns a `REFER` or `ROUTINE` decision. |
+
+**Example API Call (cURL):**
+`curl -X POST http://127.0.0.1:8000/analyze -F "file=@sample.jpeg;type=image/jpeg" -F "note=Cough and fever since Monday. Call 0300-1234567."`
+
+### 2. Real-World Troubleshooting: API Key Security (Task A.6)
+While testing the optional API Key requirement, I encountered an authentication issue.
+*   **The Problem:** I set the `API_KEY` environment variable in the terminal to secure the API, but I forgot to enter it into the `x-api-key` input box in the Swagger UI. This resulted in a `401 Unauthorized` error.
+*   **The Fix:** I typed the secret key (`choose-a-long-secret`) into the `x-api-key` box. The API successfully authenticated and returned the `200 OK` response with the prediction.
+*   **Takeaway:** This proves the security feature works. Any client calling the API must include the header `x-api-key`, otherwise they are blocked.
+
+![Screenshot of the API Error and Fix](PASTE_YOUR_RAW_IMAGE_LINK_HERE)
+
+### 3. Testing and Benchmarking (Task A.5)
+
+**Pytest Output:**
+`8 passed, 1 warning in 10.15s`
+
+**Benchmark Numbers:**
+
+| Metric | Value |
+| :--- | :--- |
+| **Hardware** | Windows Laptop (AMD Ryzen 5 7430U, 7.7 GB RAM) |
+| **p50 Latency** | 59 ms |
+| **p95 Latency** | 68 ms |
+| **Max Latency** | 522 ms |
+| **Throughput** | ~14.4 requests/s (1 worker) |
+
+**Little's Law Calculation:**
+*   **Formula:** `Concurrency = Throughput * Latency`
+*   At p50 latency of 59 ms (0.059 seconds): Max throughput per worker = 1 / 0.059 = **16.95 requests/second**.
+*   Requests per day = 16.95 * 60 * 60 * 24 = **1,464,480 requests per day** (theoretical maximum at 100% utilization).
+
+**Bad Input Test:**
+Beyond the automated tests, I sent a corrupt text file (`not_an_image.txt`) to the `/predict` endpoint using the Swagger UI. The API correctly caught the invalid format and returned a **415 Unsupported Media Type** error, preventing the model from crashing.
+
+### 4. Check Your Understanding
+
+| Question | Answer |
+| :--- | :--- |
+| **1. A client uploads a PDF to `/predict`. Which status code should it get, and why not 500?** | It should return **415 Unsupported Media Type**. It is not a 500 because the server is working; the client just provided the wrong input format. |
+| **2. Why is the model loaded in `lifespan` rather than inside the endpoint?** | Loading the model inside the endpoint would reload the weights for every request, making the API extremely slow. `lifespan` loads it once on startup. |
+| **3. p50 = 40 ms and p95 = 400 ms. What does that tell you, and what would you check?** | The median is fast, but the worst-case is 10x slower. 5% of users wait 0.4s. I would check for memory spikes or the server being blocked by other tasks. |
+| **4. 500,000 requests a day, peak 5 times the average, 25 requests per second per worker. How many workers?** | Average: 500,000 / 86,400s = ~5.8 req/s. Peak: 5.8 * 5 = 29 req/s. Workers needed: 29 / 25 = **2 workers**. |
+| **5. Why can model inference inside an `async def` endpoint slow down other requests?** | Model inference is a CPU-heavy blocking operation. If run directly in an `async` function, it blocks the main event loop, preventing the server from responding to other requests. |
+| **6. How many communication channels does a 4-person team have?** | Formula: `n(n-1)/2`. `4(3)/2 =` **6 channels**. |
+
+---
 
 ## Week 7: Text and Multimodal AI (Medical NLP Pipeline)
 
